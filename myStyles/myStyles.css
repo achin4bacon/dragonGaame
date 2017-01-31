@@ -23,6 +23,7 @@ background-size: cover;
     background-color: lightslategrey;
     margin: 0 auto; 
     font-size: 18px;
+    opacity: .75;
 }
 
 body {

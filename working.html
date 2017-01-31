@@ -1,3 +1,4 @@
+
 var input;
 
 var hasBeenToWest;
@@ -35,20 +36,24 @@ function process() {
         northWing();
     }
     else if (isNorthEast == true) {
-        northEastWing();
+        northEast();
     }
-    else if (isNorthNorthEast == true) {
+    else if (isnorthNorthEast == true) {
         northNorthEast();
     }
-    else if (isNorthEastOne == true) {
+    else if (isnorthEastOne == true) {
         northEastOne();
     }
+    // else if (isnorthEastEast === true)
+    // {
+    //     northEastEast();
+    // }
     else if (isSouthEast == true) {
         southEast();
     }
-    // else {
-    //     alert("You did something wrong! You are a disgrace to the Dragonborn! Game over! Start again! Follow the rules!")
-    // }
+    else {
+        alert("You did something wrong! You are a disgrace to the Dragonborn! Game over! Start again! Follow the rules!")
+    }
 }
 
 
@@ -74,6 +79,7 @@ function entrance() {
 }
 
 function westWingMsg() {
+    hasBeenToWest = true;
     alert("What luck! You've arrived at the armory. You find a sword and a shield and pick them up. Go back to the entrance.");
     alert("The only other door is to the north. Go to the north door.");
     msg = " You enter the north door and...It's a dragon! Using your sword and shield, you are able to defeat the dragon! Giving a piteous moan, he lowers himself submissively onto the ground and allows the dragon keepers to shackle him back up. Now that he's gone, you notice an exit to the North of the room and another door leading to the east side of the castle. Would you like to exit or continue your adventure? enter 'exit' or 'continue'";
@@ -100,9 +106,11 @@ function northWingMsg() {
     $("#questQuestions").html(msg);
     setFlagsToFalse();
     isNorth = true;
+    console.log(isNorth);
 }
 
 function northWing() {
+    console.log("hit")
     input = $("#entryBox").val();
     $("#entryBox").val("");
     if (inputLC(input) == "entrance") {
@@ -111,8 +119,7 @@ function northWing() {
         westWingMsg();
     }
     else {
-        alert("The dragon killed you. Next time, make sure you get your items before you try to fight him. Go back to the beginning and try again.")
-        entranceMsg();
+        alert("The dragon killed you. Next time, make sure you get your items before you try to fight him. Refresh the browser to try again.")
     }
 }
 
@@ -136,9 +143,11 @@ function northEastWing() {
         southEastMsg();
     }
 };
+// input = prompt(msg);
+
+
 
 function northNorthEastMsg() {
-    hasStaff = true;
     msg = "Wow, COOL! You have found the Staff of the Dragonborn! This is sure to come in handy. Let's head back to the Northeast Wing. Type 'continue' to continue.";
     $("#questQuestions").html(msg);
     setFlagsToFalse();
@@ -146,19 +155,15 @@ function northNorthEastMsg() {
 }
 
 function northNorthEast() {
-    input = $("#entryBox").val();
-    $("#entryBox").val("");
-    if (inputLC(input) === 'continue') {
+    hasStaff = true;
+    {
         northEastWingMsg();
     }
-
 }
 
 function northEastOneMsg() {
     if (hasKey === false) {
         alert("Uh oh! Looks like this door is locked. The key must be around here somewhere! See if you can find it.")
-        setFlagsToFalse();
-        isNorthEastOne = true;
         northEastWing();
 
     }
@@ -169,6 +174,7 @@ function northEastOneMsg() {
         isNorthEastOne = true;
     }
 }
+
 function northEastOne() {
     input = $("#entryBox").val();
     $("#entryBox").val("");
@@ -182,45 +188,7 @@ function northEastOne() {
     }
 }
 
-function southEastMsg() {
-    if (hasStaff === false) {
-        msg = "You've found another dragon! Trogdor roars and shakes a big, beefy arm in your general direction! He's much bigger than the first dragon--the sword and shield alone shall not suffice!Would you like to try to fight Trogdor? Answer 'yes' or 'no'";
-        $("#questQuestions").html(msg);
-        setFlagsToFalse();
-        isSouthEast = true;
-    }
-    else {
-        alert("You've found another dragon! Trogdor roars and shakes a big, beefy arm in your general direction! He's much bigger than the first dragon--the sword and shield alone shall not suffice! You aim the Staff of the Dragonborn at Trogdor. 'You will not burninate me today!' you shout valiantly. The staff trembles with immense power, and from it erupts a silvery spray which surrounds Trogdor and renders him helpless. The dragon keepers come to take him away, and, as they leave, you find a key! The only door here leads back into the Northeast Wing. Exit now.");
-        hasKey = true;
-        setFlagsToFalse();
-        isSouthEast = true;
-        northEastWingMsg();
 
-    }
-}
-
-function southEast() {
-    input = $("#entryBox").val();
-    $("#entryBox").val("");
-    if (hasStaff === false && inputLC(input) === 'yes') {
-        alert("I thought we'd already been over this! You shouldn't fight dragons without being properly equipped. Trogdor burninates you and you die. Resume your journey at the Northeast Wing.");
-        hasKey = true;
-        northEastWingMsg();
-    }
-    else if (hasStaff === false && inputLC(input) === 'no') {
-        alert("You hastily make your way back to the door you entered through and return to the Northeast Wing.");
-        hasKey = false;
-        northEastWingMsg();
-    }
-    else if (hasStaff) {
-        alert("You aim the Staff of the Dragonborn at Trogdor. 'You will not burninate me today!' you shout valiantly. The staff trembles with immense power, and from it erupts a silvery spray which surrounds Trogdor and renders him helpless. The dragon keepers come to take him away, and, as they leave, you find a key! The only door here leads back into the Northeast Wing. Exit now.");
-        hasKey = true;
-        northEastWingMsg();
-    }
-    else {
-        alert("C'mon! Be brave! Let's fight him.")
-    }
-}
 
 function northEastEastMsg() {
     msg = "Princess Zelda is waiting for you. 'Oh good!' she exclaims, 'you were able to subdue my cousin's dragons! Dany is so irresponsible sometimes! Please, take this gem as my token of gratitude.' You receive a mysterious beautiful gem. 'Please come back to visit whenever you'd like--I'm sure those unruly dragons will cause more trouble eventually!' You assure Zelda that you will be back and exit out of a door located to the east.";
@@ -228,7 +196,33 @@ function northEastEastMsg() {
     alert("You made it! Congratulations, and thanks for playing the game!")
 }
 
+function southEastMsg() {
+    alert("You've found another dragon! Trogdor roars and shakes a big, beefy arm in your general direction! He's much bigger than the first dragon--the sword and shield alone shall not suffice!");
+    msg = "Would you like to try to fight Trogdor? Answer 'yes' or 'no'";
+    $("#questQuestions").html(msg);
+    setFlagsToFalse();
+    isSouthEast = true;
+}
 
+function southEast() {
+    input = $("#entryBox").val();
+    $("#entryBox").val("");
+    if (inputLC(input) === 'yes' && hasStaff === false) {
+        alert("I thought we'd already been over this! You shouldn't fight dragons without being properly equipped. Trogdor burninates you and you die. Resume your journey at the Northeast Wing.");
+        hasKey = true;
+        northEastWingMsg();
+    }
+    else if (inputLC(input) === 'no' && hasStaff === false) {
+        alert("You hastily make your way back to the door you entered through and return to the Northeast Wing.");
+        hasKey = false;
+        northEastWingMsg();
+    }
+    else if (inputLC(input) === 'yes' && hasStaff === true) {
+        alert("You aim the Staff of the Dragonborn at Trogdor. 'You will not burninate me today!' you shout valiantly. The staff trembles with immense power, and from it erupts a silvery spray which surrounds Trogdor and renders him helpless. The dragon keepers come to take him away, and, as they leave, you find a key! The only door here leads back into the Northeast Wing. Exit now.");
+        hasKey = true;
+        northEastWingMsg();
+    }
+}
 
 function inputLC(input) {
     return input.toLowerCase();
